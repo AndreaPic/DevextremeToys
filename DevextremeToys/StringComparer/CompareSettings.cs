@@ -13,6 +13,9 @@ namespace DevExtremeToys.StringComparer
     /// </summary>
     internal sealed class CompareSettings
     {
+
+        public Func<Settings>? GetDefaultSetting;
+
         /// <summary>
         /// File with configuration
         /// </summary>
@@ -26,17 +29,17 @@ namespace DevExtremeToys.StringComparer
         /// Singleton constructor
         /// </summary>
         private CompareSettings() {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(appSettingsFileName, optional: true, reloadOnChange: true);
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile(appSettingsFileName, optional: true, reloadOnChange: true);
 
-            configuration = builder.Build();
+                configuration = builder.Build();
         }
 
         /// <summary>
         /// Lazy singleton
         /// </summary>
         private static readonly Lazy<CompareSettings>
-                lazy = new Lazy<CompareSettings>(() =>
+                lazy = new Lazy<CompareSettings>(() =>                
                 new CompareSettings()
                 );
         /// <summary>
@@ -54,17 +57,28 @@ namespace DevExtremeToys.StringComparer
         {
             get
             {
-                if (!accentReaded)
+                if (GetDefaultSetting != null)
                 {
-                    accentOption = configuration.GetValue<AccentOptions>(nameof(AccentOption), AccentOptions.Sensitive);
-                    accentReaded = true;
+                    var settings = GetDefaultSetting();
+                    accentOption = settings.AccentOption;
+                }
+                else
+                {
+                    if (!accentReaded)
+                    {
+                        accentOption = configuration.GetValue<AccentOptions>(nameof(AccentOption), AccentOptions.Sensitive);
+                        accentReaded = true;
+                    }
                 }
                 return accentOption;
             }
             set
             {
+                if (GetDefaultSetting == null)
+                {
+                    accentReaded = true;
+                }
                 accentOption = value;
-                accentReaded = true;
                 compareOption = null;
             }
         }
@@ -84,17 +98,28 @@ namespace DevExtremeToys.StringComparer
         {
             get
             {
-                if (!caseOptionReaded)
+                if (GetDefaultSetting != null)
                 {
-                    caseOption = configuration.GetValue<CaseOptions>(nameof(CaseOption),CaseOptions.Insensitive);
-                    caseOptionReaded = true;
+                    var settings = GetDefaultSetting();
+                    caseOption = settings.CaseOption;
+                }
+                else
+                {
+                    if (!caseOptionReaded)
+                    {
+                        caseOption = configuration.GetValue<CaseOptions>(nameof(CaseOption), CaseOptions.Insensitive);
+                        caseOptionReaded = true;
+                    }
                 }
                 return caseOption;
             }
             set
             {
+                if (GetDefaultSetting==null)
+                {
+                    caseOptionReaded = true;
+                }
                 caseOption = value;
-                caseOptionReaded = true;
                 compareOption = null;
             }
         }
@@ -154,7 +179,7 @@ namespace DevExtremeToys.StringComparer
     /// <summary>
     /// Configure how accents works during comparison
     /// </summary>
-    internal enum AccentOptions
+    public enum AccentOptions
     {
         /// <summary>
         /// Accented letter and unaccented are the same
@@ -169,7 +194,7 @@ namespace DevExtremeToys.StringComparer
     /// <summary>
     /// Configure how upper and lower case works during comparison
     /// </summary>
-    internal enum CaseOptions
+    public enum CaseOptions
     {
         /// <summary>
         /// Upper letter and lower lettere are the same
