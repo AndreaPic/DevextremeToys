@@ -4,7 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("StringCompareTest",AllInternalsVisible =true)]
+[assembly: InternalsVisibleTo("DevExtremeToysTests", AllInternalsVisible =true)]
 
 namespace DevExtremeToys.StringComparer
 {
