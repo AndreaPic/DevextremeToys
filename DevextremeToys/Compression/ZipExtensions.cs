@@ -20,7 +20,7 @@ namespace DevExtremeToys.Compression
         /// <returns>byte array of gzipped object</returns>
         public static byte[] Zip(this object obj)
         {
-            byte[] bytes = obj.Serialize();
+            byte[] bytes = obj.ToUTF8ByteArray();
 
             using (MemoryStream msi = new MemoryStream(bytes))
             {
@@ -41,7 +41,7 @@ namespace DevExtremeToys.Compression
         /// </summary>
         /// <param name="bytes">byte array of zipped object</param>
         /// <returns>Uncompressed and deserialized object</returns>
-        public static async Task<object> Unzip(this byte[] bytes)
+        public static object Unzip(this byte[] bytes)
         {
             using (MemoryStream msi = new MemoryStream(bytes))
             {
@@ -52,7 +52,7 @@ namespace DevExtremeToys.Compression
                         gs.CopyTo(mso);
                     }
 
-                    return await mso.ToArray().DeserializeObject();
+                    return mso.ToArray().ObjectFromUF8ByteArray();
                 }
             }
         }

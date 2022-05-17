@@ -12,6 +12,7 @@ namespace DevExtremeToys.StringComparer
     /// </summary>
     public static class StringComparerExtensions
     {
+
         /// <summary>
         ///     Determines whether two specified System.String objects have the same value.
         /// </summary>
@@ -27,6 +28,7 @@ namespace DevExtremeToys.StringComparer
         {
             return Equals(source, value);
         }
+
         /// <summary>
         ///     Compares two specified System.String objects and returns an integer that indicates
         ///     their relative position in the sort order.
@@ -45,6 +47,7 @@ namespace DevExtremeToys.StringComparer
         {
             return CompareTo(source, value);
         }
+
         /// <summary>
         ///     Compares this instance with a specified System.String object and indicates whether
         ///     this instance precedes, follows, or appears in the same position in the sort
@@ -176,6 +179,7 @@ namespace DevExtremeToys.StringComparer
         {
             return IndexOf(source, value.ToString(), 0, source.Length);
         }
+
         /// <summary>
         ///    Reports the zero-based index of the first occurrence of the specified Unicode
         ///    character in this string. The search starts at a specified character position.

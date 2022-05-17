@@ -12,9 +12,14 @@ namespace DevExtremeToys.StringComparer
     /// </summary>
     internal sealed class CompareSettings
     {
-
+        /// <summary>
+        /// Default compare settings
+        /// </summary>
         private readonly Settings DefaultSettings = new Settings() {  AccentOption = AccentOptions.Sensitive, CaseOption = CaseOptions.Sensitive };
 
+        /// <summary>
+        /// Implement this function to configure settings used comparing strings
+        /// </summary>
         public Func<Settings>? GetSetting;
 
         /// <summary>
@@ -29,6 +34,10 @@ namespace DevExtremeToys.StringComparer
                 lazy = new Lazy<CompareSettings>(() =>                
                 new CompareSettings()
                 );
+
+        /// <summary>
+        /// Current accent options
+        /// </summary>
         internal AccentOptions AccentOption
         {
             get
@@ -68,9 +77,9 @@ namespace DevExtremeToys.StringComparer
         public static CompareSettings Instance { get { return lazy.Value; } }
 
         /// <summary>
-        /// Get the Current Globalization options
+        /// Get the current compare options
         /// </summary>
-        /// <returns></returns>
+        /// <returns>current compare options</returns>
         public CompareOptions GetCompareOptions()
         {
             CompareOptions compareOption;

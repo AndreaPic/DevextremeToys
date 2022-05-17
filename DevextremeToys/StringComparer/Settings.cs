@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace DevExtremeToys.StringComparer
 {
+    /// <summary>
+    /// Setting options to compare strings 
+    /// </summary>
     public record Settings
     {
+        /// <summary>
+        /// Accent options
+        /// </summary>
         public AccentOptions AccentOption { get; init; }
+        /// <summary>
+        /// Case sense options
+        /// </summary>
         public CaseOptions CaseOption { get; init; }
     }
     /// <summary>
