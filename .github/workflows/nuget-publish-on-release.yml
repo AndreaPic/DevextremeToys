@@ -1,4 +1,4 @@
-name: CI
+name: NUGET-PUBLISH-RELEASE
 
 on:
   create:
