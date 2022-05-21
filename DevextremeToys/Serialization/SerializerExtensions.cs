@@ -97,10 +97,11 @@ namespace DevExtremeToys.Serialization
         /// Deserialize a byte array of serialized object
         /// </summary>
         /// <param name="arr">byte array of serialed object</param>
+        /// <typeparam name="T">Deserialized Type</typeparam>
         /// <returns>Deserialized object</returns>
-        public static object ObjectFromUF8ByteArray(this byte[] arr)
+        public static T ObjectFromUF8ByteArray<T>(this byte[] arr)
         {
-            object obj = arr.FromUF8ByteArray<object>();
+            T obj = arr.FromUF8ByteArray<T>();
             return obj;
         }
 
@@ -108,10 +109,11 @@ namespace DevExtremeToys.Serialization
         /// Deserialize a byte array of serialized object
         /// </summary>
         /// <param name="arr">byte array of serialed object</param>
+        /// <typeparam name="T">Deserialized Type</typeparam>
         /// <returns>Deserialized object</returns>
-        public static object ObjectFromUF8ByteArray(this byte[] arr, JsonSerializerSettings jsonsettings)
+        public static T ObjectFromUF8ByteArray<T>(this byte[] arr, JsonSerializerSettings jsonsettings)
         {
-            object obj = arr.FromUF8ByteArray<object>(jsonsettings);
+            T obj = arr.FromUF8ByteArray<T>(jsonsettings);
             return obj;
         }
     }

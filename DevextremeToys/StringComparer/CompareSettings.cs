@@ -10,7 +10,7 @@ namespace DevExtremeToys.StringComparer
     /// <summary>
     /// Configure how the comparison works
     /// </summary>
-    internal sealed class CompareSettings
+    public sealed class CompareSettings
     {
         /// <summary>
         /// Default compare settings
@@ -80,29 +80,46 @@ namespace DevExtremeToys.StringComparer
         /// Get the current compare options
         /// </summary>
         /// <returns>current compare options</returns>
-        public CompareOptions GetCompareOptions()
+        internal CompareOptions GetCompareOptions()
+        {
+
+            if (GetSetting != null)
+            {
+                return GetCompareOptions(GetSetting());
+            }
+            else
+            {
+                return GetCompareOptions(DefaultSettings);
+            }
+        }
+
+        /// <summary>
+        /// Get the compare options based on settings argument
+        /// </summary>
+        /// <returns>Compare options</returns>
+        internal CompareOptions GetCompareOptions(Settings settings)
         {
             CompareOptions compareOption;
-            if ((CaseOption == CaseOptions.Sensitive)
-                && (AccentOption == AccentOptions.Sensitive)
+            if ((settings.CaseOption == CaseOptions.Sensitive)
+                && (settings.AccentOption == AccentOptions.Sensitive)
                 )
             {
                 compareOption = CompareOptions.None;
             }
-            else if ((CaseOption == CaseOptions.Sensitive)
-                && (AccentOption == AccentOptions.Insensitive)
+            else if ((settings.CaseOption == CaseOptions.Sensitive)
+                && (settings.AccentOption == AccentOptions.Insensitive)
                 )
             {
                 compareOption = CompareOptions.IgnoreNonSpace;
             }
-            else if ((CaseOption == CaseOptions.Insensitive)
-                && (AccentOption == AccentOptions.Sensitive)
+            else if ((settings.CaseOption == CaseOptions.Insensitive)
+                && (settings.AccentOption == AccentOptions.Sensitive)
                 )
             {
                 compareOption = CompareOptions.IgnoreCase;
             }
-            else if ((CaseOption == CaseOptions.Insensitive)
-                && (AccentOption == AccentOptions.Insensitive)
+            else if ((settings.CaseOption == CaseOptions.Insensitive)
+                && (settings.AccentOption == AccentOptions.Insensitive)
                 )
             {
                 compareOption = CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace;

@@ -21,7 +21,7 @@ namespace DevExtremeToys.Reflection
         /// <param name="instance">Object instance of the property</param>
         /// <returns>property value</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static object? GetPropertyValue([NotNull] string propertyName, [NotNull] object instance)
+        public static object? GetPropertyValue(this object instance, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName) || instance == null)
             {
@@ -37,7 +37,7 @@ namespace DevExtremeToys.Reflection
         /// <param name="newValue">New valuefor the property</param>
         /// <param name="instance">Object instance of the property</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public static void SetPropertyValue([NotNull] string propertyName, object newValue, [NotNull]object instance)
+        public static void SetPropertyValue(this object instance, [NotNull] string propertyName, object newValue)
         {
             if(string.IsNullOrEmpty(propertyName) || instance == null)
             {
@@ -53,7 +53,7 @@ namespace DevExtremeToys.Reflection
         /// <param name="instance">Object instance of the filed</param>
         /// <returns>Field value</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static object GetFieldValue([NotNull] string fieldName, [NotNull] object instance)
+        public static object GetFieldValue(this object instance, [NotNull] string fieldName)
         {
             if (string.IsNullOrEmpty(fieldName) || instance == null)
             {
@@ -69,7 +69,7 @@ namespace DevExtremeToys.Reflection
         /// <param name="newValue">New value for the field</param>
         /// <param name="instance">Object instance of the filed</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public static void SetFieldValue([NotNull] string fieldName, object newValue, [NotNull] object instance)
+        public static void SetFieldValue(this object instance, [NotNull] string fieldName, object newValue)
         {
             if (string.IsNullOrEmpty(fieldName) || instance == null)
             {
@@ -85,7 +85,7 @@ namespace DevExtremeToys.Reflection
         /// <param name="objectType">Object Type of the property</param>
         /// <param name="propertyName">Name of the property to look for</param>
         /// <returns>Attribute if exists</returns>
-        public static TA? GetPropertyAttribute<TA>(Type objectType, string propertyName)
+        public static TA? GetPropertyAttribute<TA>(this Type objectType, string propertyName)
             where TA : Attribute
         {
             TA? attr = null;
@@ -102,17 +102,28 @@ namespace DevExtremeToys.Reflection
         }
 
         /// <summary>
-        /// Get an attribute from a property (if both exists)
+        /// Get an attribute from a field (if both exists)
         /// </summary>
         /// <typeparam name="TA">Attribute to look for</typeparam>
-        /// <typeparam name="TO">Object Type of the property</typeparam>
-        /// <param name="propertyName">Name of the property to look for</param>
+        /// <param name="objectType">Object Type of the property</param>
+        /// <param name="fieldName">Name of the property to look for</param>
         /// <returns>Attribute if exists</returns>
-        public static TA? GetPropertyAttribute<TA,TO>(string propertyName)
+        public static TA? GetFiledAttribute<TA>(this Type objectType, string fieldName)
             where TA : Attribute
         {
-            return GetPropertyAttribute<TA>(typeof(TO),propertyName);
+            TA? attr = null;
+            var fi = objectType.GetField(fieldName, BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.Public);
+            if (fi != null)
+            {
+                var propDescr = TypeDescriptor.GetProperties(fi.ReflectedType).Find(fi.Name, false);
+                if (propDescr != null)
+                {
+                    attr = propDescr.Attributes.OfType<TA>().FirstOrDefault();
+                }
+            }
+            return attr;
         }
+
 
     }
 }

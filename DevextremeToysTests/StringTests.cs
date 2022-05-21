@@ -1,4 +1,5 @@
 using DevExtremeToys.Strings;
+using DevExtremeToys.StringComparer;
 using Xunit;
 
 namespace DevExtremeToysTests
@@ -43,6 +44,39 @@ namespace DevExtremeToysTests
 
             replaced = s1.ReplaceFirst(null, "HHH", System.StringComparison.Ordinal);
             Assert.True(replaced == "a1abbbcccaaabbbccc");
+        }
+
+        [Fact]
+        public void CompareCIASTest()
+        {
+            CompareSettings.Instance.GetSetting = () =>
+            {
+                return new Settings()
+                {
+                    CaseOption = CaseOptions.Insensitive,
+                    AccentOption = AccentOptions.Sensitive
+                };
+            };
+            
+            string s1 = "à1abbbcccaaabbbccc";
+            string s2 = "à1ABBBCCCAAABBBCCC";
+
+            Assert.True(s1.CompareToDevEx(s1) == 0);
+
+            string s3 = "a1abbbcccaaabbbccc";
+            Assert.False(s1.CompareToDevEx(s3) == 0);
+
+            CompareSettings.Instance.GetSetting = null;
+
+            var localSettings = new Settings()
+            {
+                CaseOption = CaseOptions.Sensitive,
+                AccentOption = AccentOptions.Sensitive
+            };
+
+
+            Assert.True(s1.CompareToDevEx(s1, localSettings) == 0);
+            Assert.False(s1.CompareToDevEx(s3, localSettings) == 0);
 
 
         }

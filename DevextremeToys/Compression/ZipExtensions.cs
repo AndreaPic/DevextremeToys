@@ -40,8 +40,9 @@ namespace DevExtremeToys.Compression
         /// UnZip a byte array of a zipped object and deserialize the object
         /// </summary>
         /// <param name="bytes">byte array of zipped object</param>
+        /// <typeparam name="T">Deserialized Type</typeparam>
         /// <returns>Uncompressed and deserialized object</returns>
-        public static object Unzip(this byte[] bytes)
+        public static T Unzip<T>(this byte[] bytes)
         {
             using (MemoryStream msi = new MemoryStream(bytes))
             {
@@ -52,7 +53,7 @@ namespace DevExtremeToys.Compression
                         gs.CopyTo(mso);
                     }
 
-                    return mso.ToArray().ObjectFromUF8ByteArray();
+                    return mso.ToArray().ObjectFromUF8ByteArray<T>();
                 }
             }
         }
