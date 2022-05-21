@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace DevExtremeToys.JSon
 {
@@ -36,9 +37,9 @@ namespace DevExtremeToys.JSon
         /// <typeparam name="TObject">Object type</typeparam>
         /// <param name="json">JSon for the object</param>
         /// <returns>Deserialized Object</returns>
-        public static TObject? ToObject<TObject>(this string json)
+        public static TObject ToObject<TObject>(this string json)
         {
-            TObject? ret = JsonConvert.DeserializeObject<TObject>(json);
+            TObject ret = JsonConvert.DeserializeObject<TObject>(json);
             return ret;
         }
 
@@ -61,9 +62,9 @@ namespace DevExtremeToys.JSon
         /// <param name="json">JSon for the object</param>
         /// <param name="settings">Settings used in deserialization</param>
         /// <returns>Deserialized Object</returns>
-        public static TObject? ToObject<TObject>(this string json, JsonSerializerSettings settings)
+        public static TObject ToObject<TObject>(this string json, JsonSerializerSettings settings)
         {
-            TObject? ret = JsonConvert.DeserializeObject<TObject>(json, settings);
+            TObject ret = JsonConvert.DeserializeObject<TObject>(json, settings);
             return ret;
         }
 

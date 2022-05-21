@@ -85,10 +85,10 @@ namespace DevExtremeToys.Reflection
         /// <param name="objectType">Object Type of the property</param>
         /// <param name="propertyName">Name of the property to look for</param>
         /// <returns>Attribute if exists</returns>
-        public static TA? GetPropertyAttribute<TA>(this Type objectType, string propertyName)
+        public static TA GetPropertyAttribute<TA>(this Type objectType, string propertyName)
             where TA : Attribute
         {
-            TA? attr = null;
+            TA attr = null;
             var pi = objectType.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.Public);
             if (pi != null)
             { 
@@ -108,10 +108,10 @@ namespace DevExtremeToys.Reflection
         /// <param name="objectType">Object Type of the property</param>
         /// <param name="fieldName">Name of the property to look for</param>
         /// <returns>Attribute if exists</returns>
-        public static TA? GetFiledAttribute<TA>(this Type objectType, string fieldName)
+        public static TA GetFiledAttribute<TA>(this Type objectType, string fieldName)
             where TA : Attribute
         {
-            TA? attr = null;
+            TA attr = null;
             var fi = objectType.GetField(fieldName, BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.Public);
             if (fi != null)
             {

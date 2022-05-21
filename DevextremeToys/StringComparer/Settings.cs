@@ -9,6 +9,19 @@ namespace DevExtremeToys.StringComparer
     /// <summary>
     /// Setting options to compare strings 
     /// </summary>
+#if NETCOREAPP3_1
+    public class Settings
+    {
+        /// <summary>
+        /// Accent options
+        /// </summary>
+        public AccentOptions AccentOption { get; set; }
+        /// <summary>
+        /// Case sense options
+        /// </summary>
+        public CaseOptions CaseOption { get; set; }
+    }
+#else
     public record Settings
     {
         /// <summary>
@@ -20,6 +33,7 @@ namespace DevExtremeToys.StringComparer
         /// </summary>
         public CaseOptions CaseOption { get; init; }
     }
+#endif
     /// <summary>
     /// Configure how accents works during comparison
     /// </summary>
