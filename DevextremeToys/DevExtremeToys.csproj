@@ -20,7 +20,7 @@
 	  <Copyright />
 	  <Title>DevExtreme Toys</Title>
 	  <PackageReleaseNotes>
-		  - Confurrent Generic List (thread safe)
+		  - Concurrent Generic List (thread safe)
 		  - Object to JSon and viceversa
 		  - Object to zip and viceversa
 		  - String comparison with case sense like database
