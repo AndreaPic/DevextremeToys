@@ -22,7 +22,7 @@ jobs:
     - name: Get Build Version
       run: |
         echo $Env:GITHUB_REF
-        echo github.ref     
+        echo $github.ref     
 
     ##- name: Setup NuGet
     ##  uses: NuGet/setup-nuget@v1.0.5
