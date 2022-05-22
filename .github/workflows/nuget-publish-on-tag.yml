@@ -3,8 +3,7 @@ name: nuget-publish-tag
 on:
   push:
     tags: 
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
-    branches: [ develop ]
+      - '[0-9]+.[0-9]+.[0-9]+*'
     ##branches:
     ##- develop
 
