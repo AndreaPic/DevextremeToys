@@ -75,7 +75,7 @@ namespace DevExtremeToysTests
             };
 
 
-            Assert.True(s1.CompareToDevEx(s1, localSettings) == 0);
+            Assert.False(s1.CompareToDevEx(s2, localSettings) == 0);
             Assert.False(s1.CompareToDevEx(s3, localSettings) == 0);
 
 
