@@ -21,9 +21,7 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Get Build Version
-      run: |
-        echo "$Env:GITHUB_REF"
-        echo "$github.ref"
+      run: echo "$GITHUB_CONTEXT"
 
 
     ##- name: Setup NuGet
