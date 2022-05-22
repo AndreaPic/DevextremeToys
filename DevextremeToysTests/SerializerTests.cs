@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DevExtremeToys.Compression;
+using DevExtremeToys.Serialization;
 using Xunit;
 
 namespace DevExtremeToysTests
 {
-    public class ZipTests
+    public class SerializerTests
     {
 
-        public record MyRecord
+        public class MyClass
         {
             public string Name { get; init; }
             public string Description { get; init; }
@@ -19,20 +19,19 @@ namespace DevExtremeToysTests
         }
 
         [Fact]
-        public void ZipUnZipTest()
+        public void SerializeDeserializeTest()
         {
-            MyRecord myClass = new MyRecord()
+            MyClass myClass = new MyClass()
             {
                 Name = "My Name",
                 Description = "My Description",
                 Id = 10
             };
-            var zip = myClass.Zip();
-            MyRecord unZipped = zip.Unzip<MyRecord>();
-            Assert.NotNull(unZipped);
-            Assert.Equal(myClass, unZipped);
-            Assert.False(ReferenceEquals(myClass,unZipped));
-
+            var tmp = myClass.ToUTF8ByteArray();
+            MyClass deserialized = tmp.FromUF8ByteArray<MyClass>();
+            Assert.NotNull(deserialized);
+            Assert.Equal(myClass.Description, deserialized.Description);
+            Assert.False(ReferenceEquals(myClass,deserialized));
         }
     }
 }
