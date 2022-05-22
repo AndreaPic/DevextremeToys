@@ -11,6 +11,7 @@ jobs:
  dump_contexts_to_log:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
 
     - name: Get Build Version
       run: |
@@ -18,6 +19,7 @@ jobs:
         Write-Host $Env:GITHUB_REF
         echo '$Env:GITHUB_REF'
         echo '$github.ref'
+      shell: pwsh
 
       ##- name: Dump GitHub context
       ##  id: github_context_step
