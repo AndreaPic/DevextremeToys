@@ -23,7 +23,7 @@ jobs:
 
     - name: Dump GitHub context
       id: github_context_step
-      run: echo '${{ github.ref) }}'
+      run: echo '${{ github.ref }}'
   ##build:
 
   ##  env:
