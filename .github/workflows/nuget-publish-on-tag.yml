@@ -9,19 +9,25 @@ on:
     ##- develop
 
 jobs:
-  build:
-
-    env:
-      BUILD_CONFIG: 'Release'
-      SOLUTION: 'DevextremeToys.sln'
-
+ dump_contexts_to_log:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+  ##build:
+
+  ##  env:
+  ##    BUILD_CONFIG: 'Release'
+  ##    SOLUTION: 'DevextremeToys.sln'
+
+  ##  runs-on: ubuntu-latest
+
+  ##  steps:
+  ##  - uses: actions/checkout@v2
     
-    - name: Get Build Version
-      run: echo "$GITHUB_CONTEXT"
+  ##  - name: Get Build Version
+  ##    run: echo "$GITHUB_CONTEXT"
 
 
     ##- name: Setup NuGet
