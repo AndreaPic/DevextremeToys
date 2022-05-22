@@ -22,8 +22,10 @@ jobs:
       shell: pwsh
 
     - name: Dump GitHub context
-      id: github_context_step
+      id: github_context_step1
       run: echo '$BUILD_VERSION'
+    - name: Dump GitHub context
+      id: github_context_step2
       run: echo '${{ github.ref }}'
   ##build:
 
