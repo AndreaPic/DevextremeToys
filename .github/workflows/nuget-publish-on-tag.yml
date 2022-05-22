@@ -17,8 +17,7 @@ jobs:
       run: |
         Import-Module .\build\GetBuildVersion.psm1
         Write-Host $Env:GITHUB_REF
-        echo '$Env:GITHUB_REF'
-        echo '$github.ref'
+        Write-Host $github.ref
       shell: pwsh
 
       ##- name: Dump GitHub context
