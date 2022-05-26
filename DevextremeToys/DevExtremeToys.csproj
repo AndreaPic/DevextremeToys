@@ -3,16 +3,16 @@
   <PropertyGroup>
 	<TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
 	  <AssemblyVersion>0.1.0.0</AssemblyVersion>
-	  <FileVersion>0.1.0.0</FileVersion>
+	  <FileVersion>0.1.0.1</FileVersion>
 	  <Version>$(VersionPrefix)$(VersionSuffix)</Version>
-	  <VersionPrefix>0.0.1</VersionPrefix>
-	  <VersionSuffix>beta</VersionSuffix>
+	  <VersionPrefix>1.0.1</VersionPrefix>
+	  <VersionSuffix></VersionSuffix>
 	  <PackageId>DevextremeToys</PackageId>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <Authors>Andrea Piccioni</Authors>
 	  <Company>Studio Progettazione Software</Company>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <PackageTags>.Net Core, CSharp, Language, Utility, dotnet</PackageTags>
+	  <PackageTags>dotnetcore, csharp, utility, dotnet</PackageTags>
 	  <PackageProjectUrl />
 	  <RepositoryUrl>https://github.com/AndreaPic/DevextremeToys</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>

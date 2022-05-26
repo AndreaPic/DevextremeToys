@@ -14,6 +14,7 @@ namespace DevExtremeToys.Reflection
     /// </summary>
     public static class ReflectionExtensions
     {
+
         /// <summary>
         /// Get current value from a property
         /// </summary>
@@ -122,6 +123,75 @@ namespace DevExtremeToys.Reflection
                 }
             }
             return attr;
+        }
+
+        /// <summary>
+        /// Return property names of a specific type
+        /// </summary>
+        /// <param name="objectType">Type where look for properties</param>
+        /// <returns>Sequence of property name</returns>
+        public static IEnumerable<string> GetPropertyNames(this Type objectType)
+        {
+            IEnumerable<string> names = null;
+
+            var properties = objectType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
+
+            if (properties != null)
+            {
+                names = properties.Select(p => p.Name).ToList();
+            }
+            else
+            {
+                names = new List<string>();
+            }
+                
+            return names;
+        }
+
+        /// <summary>
+        /// Return field names of a specific type
+        /// </summary>
+        /// <param name="objectType">Type where look for fields</param>
+        /// <returns>Sequence of field name</returns>
+        public static IEnumerable<string> GetFieldNames(this Type objectType)
+        {
+            IEnumerable<string> names = null;
+
+            var fields = objectType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
+
+            if (fields != null)
+            {
+                names = fields.Select(p => p.Name).ToList();
+            }
+            else
+            {
+                names = new List<string>();
+            }
+
+            return names;
+        }
+
+        /// <summary>
+        /// Get a specific attribute from specific type
+        /// </summary>
+        /// <typeparam name="TAttr">Attribute to look for</typeparam>
+        /// <param name="type">Type to extend</param>
+        /// <returns>Attribute if exists otherwise null</returns>
+        public static TAttr GetAttribute<TAttr>(this Type type)
+            where TAttr : Attribute
+        {
+            TAttr attr = TypeDescriptor.GetAttributes(type).OfType<TAttr>().FirstOrDefault();
+            return attr;
+        }
+
+        /// <summary>
+        /// Get attributes from specific type
+        /// </summary>
+        /// <param name="type">Type to extend</param>
+        /// <returns>Attributes</returns>
+        public static IEnumerable<Attribute> GetAttributes(this Type type)
+        {
+            return TypeDescriptor.GetAttributes(type).OfType<Attribute>();
         }
 
 
