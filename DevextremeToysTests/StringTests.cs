@@ -81,5 +81,16 @@ namespace DevExtremeToysTests
 
         }
 
+
+        [Fact]
+        public void FooTest()
+        {
+            string s = "1234567890";
+            string sr = s.ReverseString();
+            Assert.True(sr == "0987654321");
+        }
+
+
+
     }
 }
