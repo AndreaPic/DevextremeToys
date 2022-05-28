@@ -12,6 +12,13 @@ namespace DevExtremeToys.Strings
 {
     public static partial class StringExtensions
     {
+        /// <summary>
+        /// Validate arguments for crypto methods
+        /// </summary>
+        /// <param name="sourceString">plain string</param>
+        /// <param name="key">key for aes</param>
+        /// <param name="iv">iv aes initialization</param>
+        /// <exception cref="ArgumentException">Exception if arguments ar null or lengths are invalid</exception>
         private static void ValidateEncryptDecryptArguments(string sourceString, string key, string iv)
         {
             if (sourceString == null || sourceString.Length <= 0)
