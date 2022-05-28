@@ -1,6 +1,8 @@
 using DevExtremeToys.Strings;
 using DevExtremeToys.StringComparer;
 using Xunit;
+using System.Text;
+using System;
 
 namespace DevExtremeToysTests
 {
@@ -79,6 +81,43 @@ namespace DevExtremeToysTests
             Assert.False(s1.CompareToDevEx(s3, localSettings) == 0);
 
 
+        }
+
+
+        [Fact]
+        public void FooTest()
+        {
+            string s = "1234567890";
+            string sr = s.ReverseString();
+            Assert.True(sr == "0987654321");
+        }
+
+        [Fact]
+        public void CryptDecryptTest()
+        {
+            //https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.aesmanaged.legalkeysizes?view=net-6.0
+            string key = "12345678901234567890123456789012";
+            string iv = "1234567890123456";
+            string s = "abcdefghijklmnopqrstuvwxyz1234567890";
+            string sc = s.AesEncrypt(key, iv);
+            Assert.False(s == sc);
+            Assert.NotNull(sc);
+            Assert.True(sc.Length > 0);
+            string sp = sc.AesDecrypt(key, iv);
+            Assert.True(s == sp);
+
+            key = "123456789012345678901234";
+            s.AesEncrypt(key, iv);
+
+            key = "1234567890123456";
+            s.AesEncrypt(key, iv);
+
+            key = "12345678901234567";
+            var caughtException = Assert.Throws<ArgumentException>(() => s.AesEncrypt(key, iv));
+
+            key = "1234567890123456";
+            iv = "12345678901234567";
+            caughtException = Assert.Throws<ArgumentException>(() => s.AesEncrypt(key, iv));
         }
 
     }
