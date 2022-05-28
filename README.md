@@ -18,20 +18,24 @@ In dotnet framework there aren't some useful features.
 These features are essential and every time we start a new project we need them so we look for them or rewrite them.
 In this package there are some useful feature for every great developer.
 
-- ConcurrentList
+- **ConcurrentList**
   - like List\<T\> but thread safe.
-- String Comparer Extensions
+- **String Comparer Extensions**
   - With this extension you can use every string comparison but configured in the same way of your database.
-- String Extensions
+- **String Extensions**
   - It adds some feature like ReplaceFirst or ReplaceLast.
-- Reflection Extensions
+- **Reflection Extensions**
   - It adds features to all object like SetPropertyValue and GetPropertyValue.
-- Json Extensions
+- **Json Extensions**
   - It adds features to all objects like .ToJson() and .ToObject() for the string type.
-- Compression Extension
+- **Compression Extension**
   - It adds features to all object to zip an instace of object.
-- Serializer Extensions
+- **Serializer Extensions**
   - It adds features to all object to serialize them to and from byte[]
+- **Cryptography Extensions**
+  - It adds feture to encrypt and decrypt strings
+- **List<> or IEnumerable<> Extensions**
+  - It adds feature to List and IEnumerable such 'Split'
 
 ## How to use
 
@@ -200,4 +204,41 @@ var tmp = myClass.ToUTF8ByteArray();
 MyClass deserialized = tmp.FromUF8ByteArray<MyClass>();
 ```
 
-## New features are coming soon
+### Cryptography Extensions
+
+Add this using
+
+```C#
+using DevExtremeToys.Strings;
+```
+
+Now all strings have .AesEncrypt method and .AesDecrypt methods
+
+```C#
+string key = "12345678901234567890123456789012";
+string iv = "1234567890123456";
+string plainText = "abcdefghijklmnopqrstuvwxyz1234567890";
+string encrypted = s.AesEncrypt(key, iv);
+string decrypted = encrypted.AesDecrypt(key, iv);
+```
+
+### List<> or IEnumerable<> Extensions
+
+Add this using
+
+```C#
+using DevExtremeToys.List;
+```
+
+Now all List<> or IEnumerable<> have .Split method
+
+```C#
+IEnumerable<int> list = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+var subLists = list.Split(3);
+
+List<int> list = new List<int>();
+//...
+var items = list.Split(3);
+```
+
+## **... New features are coming soon ...**
