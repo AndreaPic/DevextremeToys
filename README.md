@@ -219,7 +219,7 @@ string key = "12345678901234567890123456789012";
 string iv = "1234567890123456";
 string plainText = "abcdefghijklmnopqrstuvwxyz1234567890";
 string encrypted = s.AesEncrypt(key, iv);
-string decrypted = sc.AesDecrypt(key, iv);
+string decrypted = encrypted.AesDecrypt(key, iv);
 ```
 
 ### List<> or IEnumerable<> Extensions
@@ -241,4 +241,4 @@ List<int> list = new List<int>();
 var items = list.Split(3);
 ```
 
-## New features are coming soon
+## **... New features are coming soon ...**
