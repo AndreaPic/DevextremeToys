@@ -28,6 +28,7 @@
 		  - List utilities
 		  - Cryptography utilities
 		  - And more...
+		  - See documentation and examples at: https://github.com/AndreaPic/DevextremeToys
 	  </PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
