@@ -62,6 +62,13 @@ namespace DevExtremeToysTests
             int nodeCount = 0;
             a.Visit((nodeInfo) =>
             {
+                //nodeInfo.CurrentPath
+                //nodeInfo.CurrentPropertyInfo
+                //nodeInfo.CurrentInstance
+                //nodeInfo.ParentInstance
+                //nodeInfo.ParentNode
+                //nodeInfo.PropertyName
+
                 nodeCount++;
                 if (nodeInfo.CurrentInstance is IName name)
                 {
