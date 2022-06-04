@@ -36,6 +36,8 @@ In this package there are some useful feature for every great developer.
   - It adds feture to encrypt and decrypt strings
 - **List<> or IEnumerable<> Extensions**
   - It adds feature to List and IEnumerable such 'Split'
+- **Visitor Extensions**
+  - It adds visitor (graph explorer\object tree explorer) to traverse object graph\aggregate
 
 ## How to use
 
@@ -218,7 +220,7 @@ Now all strings have .AesEncrypt method and .AesDecrypt methods
 string key = "12345678901234567890123456789012";
 string iv = "1234567890123456";
 string plainText = "abcdefghijklmnopqrstuvwxyz1234567890";
-string encrypted = s.AesEncrypt(key, iv);
+string encrypted = plainText.AesEncrypt(key, iv);
 string decrypted = encrypted.AesDecrypt(key, iv);
 ```
 
@@ -239,6 +241,33 @@ var subLists = list.Split(3);
 List<int> list = new List<int>();
 //...
 var items = list.Split(3);
+```
+
+### Visitor Extensions
+
+Add this using
+
+```C#
+using DevExtremeToys.Visitors;
+```
+
+Now all objects .Visit method
+
+```C#
+MyClassA a = new MyClassA();
+//...
+//fill object properties (collection, objects, internals...)
+//...
+a.Visit((nodeInfo) =>
+{
+    //nodeInfo.CurrentPath
+    //nodeInfo.CurrentPropertyInfo
+    //nodeInfo.CurrentInstance
+    //nodeInfo.ParentInstance
+    //nodeInfo.ParentNode
+    //nodeInfo.PropertyName
+    Debug.WriteLine(nodeInfo.CurrentPath);
+});
 ```
 
 ## **... New features are coming soon ...**

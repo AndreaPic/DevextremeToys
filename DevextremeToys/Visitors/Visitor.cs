@@ -1,0 +1,143 @@
+﻿using DevExtremeToys.Reflection;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DevExtremeToys.Visitors
+{
+    /// <summary>
+    /// Information about current visiting node
+    /// </summary>
+    public class NodeInfo
+    {
+        /// <summary>
+        /// Constructor with current info
+        /// </summary>
+        /// <param name="propertyName">Property analyzed (it could be null es. for root instance)</param>
+        /// <param name="currentInstance">Current instance analyzed object</param>
+        /// <param name="currentPropertyInfo">Property info that owns current instance (it could be null es. for root instance) </param>
+        /// <param name="parentNode">Node info of current instance's parent object (it could be null es. for root instance)</param>
+        public NodeInfo(string propertyName, object currentInstance, PropertyInfo currentPropertyInfo, NodeInfo parentNode)
+        {
+            PropertyName = propertyName;
+            CurrentInstance = currentInstance;
+            CurrentPropertyInfo = currentPropertyInfo;
+            ParentNode = parentNode;
+            if (parentNode?.CurrentPath != null) 
+            {
+                CurrentPath = $"{parentNode.CurrentPath}.";
+            }
+            if (PropertyName != null)
+            {
+                CurrentPath = CurrentPath + PropertyName;
+            }
+        }
+
+        /// <summary>
+        /// Property analyzed (it could be null es. for root instance)
+        /// </summary>
+        public string PropertyName { get; private set; }
+        /// <summary>
+        /// Current instance analyzed object
+        /// </summary>
+        public object CurrentInstance { get; private set; }
+        /// <summary>
+        /// Property info that owns current instance (it could be null es. for root instance) 
+        /// </summary>
+        public PropertyInfo CurrentPropertyInfo { get; private set; }
+        /// <summary>
+        /// Parent object instance (it could be null es. for root instance) 
+        /// </summary>
+        public object ParentInstance 
+        { 
+            get
+            {
+                return ParentNode?.CurrentInstance;
+            }
+        }
+        /// <summary>
+        /// Navigation path of current node (it could be null es. for root instance) 
+        /// </summary>
+        public string CurrentPath { get; private set; }
+        /// <summary>
+        /// Parent object (it could be null es. for root instance) 
+        /// </summary>
+        public NodeInfo ParentNode { get; private set; }
+    }
+
+    /// <summary>
+    /// Extension for object inspection
+    /// </summary>
+    public static class Visitor
+    {
+        /// <summary>
+        /// Traverse object's property of class type
+        /// </summary>
+        /// <param name="objectToInspect">Current extended object to analyze</param>
+        /// <param name="inspectAction">Action to be invoke during traverse</param>
+        public static void Visit(this object objectToInspect, Action<NodeInfo> inspectAction)
+        {
+            if (objectToInspect == null)
+            {
+                return;
+            }
+            List<object> nodes = new List<object>();
+            NodeInfo nodeInfo = new NodeInfo(null, objectToInspect, null, null);
+
+            VisitNodes(nodeInfo, nodes, nodeInfo, inspectAction);
+        }
+
+        /// <summary>
+        /// Recursive visit implementation
+        /// </summary>
+        /// <param name="currentNode">Node for action to invoke</param>
+        /// <param name="nodes">traversed nodes</param>
+        /// <param name="parentNode">last parent node</param>
+        /// <param name="inspectAction">action to invoke</param>
+        private static void VisitNodes(NodeInfo currentNode, List<object> nodes, NodeInfo parentNode, Action<NodeInfo> inspectAction)
+        {
+            if (nodes.FirstOrDefault(n => object.ReferenceEquals(n, currentNode.CurrentInstance)) != null)
+            {
+                return;
+            }
+            else
+            {
+                inspectAction(currentNode);
+                nodes.Add(currentNode.CurrentInstance);
+            }
+
+            var properties = currentNode.CurrentInstance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
+            var classProps = properties.Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string));
+            foreach (var classProp in classProps)
+            {
+                var pValue = currentNode.CurrentInstance.GetPropertyValue(classProp.Name);
+                if (pValue != null)
+                {
+                    NodeInfo childNode = new NodeInfo(classProp.Name, pValue, classProp, parentNode);
+                    if (!(pValue is IEnumerable enumerable))
+                    {
+                        VisitNodes(childNode, nodes, currentNode, inspectAction);
+                    }
+                    else
+                    {
+                        NodeInfo enumerableNode = new NodeInfo(classProp.Name, pValue, classProp, parentNode);
+                        if (nodes.FirstOrDefault(n => object.ReferenceEquals(n, pValue)) == null)
+                        {
+                            inspectAction(enumerableNode);
+                        }
+
+                        foreach (var item in enumerable)
+                        {
+                            NodeInfo itemNode = new NodeInfo("Current", item, classProp, childNode);
+                            VisitNodes(itemNode, nodes, currentNode, inspectAction);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
