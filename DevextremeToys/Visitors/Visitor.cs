@@ -74,11 +74,79 @@ namespace DevExtremeToys.Visitors
     /// </summary>
     public static class Visitor
     {
+
+        /// <summary>
+        /// Traverse object's property of class type awaiting inspectFunc param
+        /// </summary>
+        /// <param name="objectToInspect">Current extended object to analyze</param>
+        /// <param name="inspectFunc">Async Task Function to invoke during traverse</param>
+        public static async Task VisitAsync(this object objectToInspect, Func<NodeInfo,Task> inspectFunc)
+        {
+            if (objectToInspect == null)
+            {
+                return;
+            }
+            List<object> nodes = new List<object>();
+            NodeInfo nodeInfo = new NodeInfo(null, objectToInspect, null, null);
+
+            await VisitNodesAsync(nodeInfo, nodes, nodeInfo, inspectFunc);
+        }
+
+        /// <summary>
+        /// Recursive visit implementation awaiting inspectFunc param
+        /// </summary>
+        /// <param name="currentNode">Node for action to invoke</param>
+        /// <param name="nodes">traversed nodes</param>
+        /// <param name="parentNode">last parent node</param>
+        /// <param name="inspectFunc">Async Task Function to invoke during traverse</param>
+        private static async Task VisitNodesAsync(NodeInfo currentNode, List<object> nodes, NodeInfo parentNode, Func<NodeInfo, Task> inspectFunc)
+        {
+            if (nodes.FirstOrDefault(n => object.ReferenceEquals(n, currentNode.CurrentInstance)) != null)
+            {
+                return;
+            }
+            else
+            {
+                await inspectFunc(currentNode);
+                nodes.Add(currentNode.CurrentInstance);
+            }
+
+            var properties = currentNode.CurrentInstance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
+            var classProps = properties.Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string));
+            foreach (var classProp in classProps)
+            {
+                var pValue = currentNode.CurrentInstance.GetPropertyValue(classProp.Name);
+                if (pValue != null)
+                {
+                    NodeInfo childNode = new NodeInfo(classProp.Name, pValue, classProp, parentNode);
+                    if (!(pValue is IEnumerable enumerable))
+                    {
+                        await VisitNodesAsync(childNode, nodes, currentNode, inspectFunc);
+                    }
+                    else
+                    {
+                        NodeInfo enumerableNode = new NodeInfo(classProp.Name, pValue, classProp, parentNode);
+                        if (nodes.FirstOrDefault(n => object.ReferenceEquals(n, pValue)) == null)
+                        {
+                            await inspectFunc(enumerableNode);
+                        }
+
+                        foreach (var item in enumerable)
+                        {
+                            NodeInfo itemNode = new NodeInfo("Current", item, classProp, childNode);
+                            await VisitNodesAsync(itemNode, nodes, currentNode, inspectFunc);
+                        }
+                    }
+                }
+            }
+        }
+
+
         /// <summary>
         /// Traverse object's property of class type
         /// </summary>
         /// <param name="objectToInspect">Current extended object to analyze</param>
-        /// <param name="inspectAction">Action to be invoke during traverse</param>
+        /// <param name="inspectAction">Action to invoke during traverse</param>
         public static void Visit(this object objectToInspect, Action<NodeInfo> inspectAction)
         {
             if (objectToInspect == null)
