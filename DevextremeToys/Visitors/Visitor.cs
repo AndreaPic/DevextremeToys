@@ -37,6 +37,7 @@ namespace DevExtremeToys.Visitors
             }
         }
 
+
         /// <summary>
         /// Property analyzed (it could be null es. for root instance)
         /// </summary>
@@ -67,6 +68,33 @@ namespace DevExtremeToys.Visitors
         /// Parent object (it could be null es. for root instance) 
         /// </summary>
         public NodeInfo ParentNode { get; private set; }
+        
+        /// <summary>
+        /// If set to true the analysis of current node stops (other nodes continue)
+        /// </summary>
+        public bool IsStopVisitCurrentNodeRequested { get; private set; }
+
+        /// <summary>
+        /// If set to true the analysis stops (on all nodes)
+        /// </summary>
+        public bool IsStopAllVisitsRequested { get; private set; }
+
+        /// <summary>
+        /// If set to true the analysis of current node stops (other nodes continue)
+        /// </summary>
+        public void StopVisitCurrentNode()
+        {
+            IsStopVisitCurrentNodeRequested = true;
+        }
+        
+        /// <summary>
+        /// If set to true the analysis of all nodes stops
+        /// </summary>
+        public void StopAllVisits()
+        {
+            IsStopAllVisitsRequested = true;
+        }
+
     }
 
     /// <summary>
@@ -109,6 +137,10 @@ namespace DevExtremeToys.Visitors
             {
                 await inspectFunc(currentNode);
                 nodes.Add(currentNode.CurrentInstance);
+                if (currentNode.IsStopVisitCurrentNodeRequested)
+                {
+                    return;
+                }
             }
 
             var properties = currentNode.CurrentInstance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
@@ -122,6 +154,10 @@ namespace DevExtremeToys.Visitors
                     if (!(pValue is IEnumerable enumerable))
                     {
                         await VisitNodesAsync(childNode, nodes, currentNode, inspectFunc);
+                        if (currentNode.IsStopAllVisitsRequested)
+                        {
+                            return;
+                        }
                     }
                     else
                     {
@@ -129,12 +165,24 @@ namespace DevExtremeToys.Visitors
                         if (nodes.FirstOrDefault(n => object.ReferenceEquals(n, pValue)) == null)
                         {
                             await inspectFunc(enumerableNode);
+                            if (enumerableNode.IsStopAllVisitsRequested)
+                            {
+                                return;
+                            }
+                            if (enumerableNode.IsStopVisitCurrentNodeRequested)
+                            {
+                                break;
+                            }
                         }
 
                         foreach (var item in enumerable)
                         {
                             NodeInfo itemNode = new NodeInfo("Current", item, classProp, childNode);
                             await VisitNodesAsync(itemNode, nodes, currentNode, inspectFunc);
+                            if (currentNode.IsStopAllVisitsRequested)
+                            {
+                                return;
+                            }
                         }
                     }
                 }
@@ -176,6 +224,10 @@ namespace DevExtremeToys.Visitors
             {
                 inspectAction(currentNode);
                 nodes.Add(currentNode.CurrentInstance);
+                if ( (currentNode.IsStopVisitCurrentNodeRequested) || (currentNode.IsStopAllVisitsRequested))
+                {
+                    return;
+                }
             }
 
             var properties = currentNode.CurrentInstance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
@@ -189,6 +241,10 @@ namespace DevExtremeToys.Visitors
                     if (!(pValue is IEnumerable enumerable))
                     {
                         VisitNodes(childNode, nodes, currentNode, inspectAction);
+                        if (childNode.IsStopAllVisitsRequested)
+                        {
+                            return;
+                        }
                     }
                     else
                     {
@@ -196,12 +252,20 @@ namespace DevExtremeToys.Visitors
                         if (nodes.FirstOrDefault(n => object.ReferenceEquals(n, pValue)) == null)
                         {
                             inspectAction(enumerableNode);
+                            if (enumerableNode.IsStopAllVisitsRequested)
+                            {
+                                return;
+                            }
                         }
 
                         foreach (var item in enumerable)
                         {
                             NodeInfo itemNode = new NodeInfo("Current", item, classProp, childNode);
                             VisitNodes(itemNode, nodes, currentNode, inspectAction);
+                            if (itemNode.IsStopAllVisitsRequested)
+                            {
+                                return;
+                            }
                         }
                     }
                 }

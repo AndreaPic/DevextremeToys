@@ -2,11 +2,11 @@
 
   <PropertyGroup>
 	<TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
-	  <AssemblyVersion>1.3.0.0</AssemblyVersion>
-	  <FileVersion>1.3.0</FileVersion>
+	  <AssemblyVersion>1.4.0.0</AssemblyVersion>
+	  <FileVersion>1.4.0</FileVersion>
 	  <Version>$(VersionPrefix)$(VersionSuffix)</Version>
-	  <VersionPrefix>1.3.0</VersionPrefix>
-	  <VersionSuffix></VersionSuffix>
+	  <VersionPrefix>1.4.0</VersionPrefix>
+	  <VersionSuffix>beta</VersionSuffix>
 	  <PackageId>DevextremeToys</PackageId>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <Authors>Andrea Piccioni</Authors>
@@ -20,6 +20,7 @@
 	  <Copyright />
 	  <Title>DevExtreme Toys</Title>
 	  <PackageReleaseNotes>
+		  - (new) Visitor Extension now has stop visiting feature
 		  - (new) added Async Visitor Extension
 		  - Concurrent Generic List (thread safe)
 		  - Object to JSon and viceversa
