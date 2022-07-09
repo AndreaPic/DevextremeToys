@@ -217,5 +217,94 @@ namespace DevExtremeToysTests
             Assert.True(nodeCount == 10);
         }
 
+
+        [Fact]
+        public void VisitorStopAllTest()
+        {
+            MyClassA a = new MyClassA() { Name = "a1" }; //--> a1 -> 1
+            var b1 = new MyClassB() { Description = "Child Of Root", Name = "b1" }; //--> b1 -> 2
+            b1.CClass = new MyClassC() { Id = 1, Name = "c1", A = a }; //--> c1 -> 3
+            a.BClassList.Add(b1); //enumerable --> 4
+            a.BClassList.Add(b1);
+
+            var b2 = new MyClassB() { Description = "Child Of Root", Name = "b2" }; //--> b2 -> 5
+            b2.CClass = new MyClassC() { Id = 2, A = null, Name = "c2" }; //--> c2 -> 6
+            a.BClassList.Add(b2);
+
+            var b3 = new MyClassB() { Description = "Child Of Root", Name = "b3" }; //--> b3 -> 7
+            b3.CClass = new MyClassC() { Id = 3, Name = "c3", A = new MyClassA() { Name = "a2" } }; //--> c3 -> 8 --> a2 -> 9 --> enumerable -> 10 
+            a.BClassList.Add(b3);
+
+
+            int nodeCount = 0;
+            a.Visit((nodeInfo) =>
+            {
+                //nodeInfo.CurrentPath
+                //nodeInfo.CurrentPropertyInfo
+                //nodeInfo.CurrentInstance
+                //nodeInfo.ParentInstance
+                //nodeInfo.ParentNode
+                //nodeInfo.PropertyName
+
+                nodeCount++;
+                if (nodeInfo.CurrentInstance is IName name)
+                {
+                    Debug.WriteLine(name.Name);
+                }
+                Debug.WriteLine(nodeInfo.CurrentPath);
+                Debug.WriteLine(nodeCount);
+                Debug.WriteLine("---------------");
+                if (nodeCount == 5)
+                {
+                    nodeInfo.StopAllVisits();
+                }
+            });
+            Assert.True(nodeCount == 5);
+        }
+
+        [Fact]
+        public void VisitorStopCurrentTest()
+        {
+            MyClassA a = new MyClassA() { Name = "a1" }; //--> a1 -> 1
+            var b1 = new MyClassB() { Description = "Child Of Root", Name = "b1" }; //--> b1 -> 2
+            b1.CClass = new MyClassC() { Id = 1, Name = "c1", A = a }; //--> c1 -> 3
+            a.BClassList.Add(b1); //enumerable --> 4
+            a.BClassList.Add(b1);
+
+            var b2 = new MyClassB() { Description = "Child Of Root", Name = "b2" }; //--> b2 -> 5
+            b2.CClass = new MyClassC() { Id = 2, A = null, Name = "c2" }; //--> c2 -> 6
+            a.BClassList.Add(b2);
+
+            var b3 = new MyClassB() { Description = "Child Of Root", Name = "b3" }; //--> b3 -> 7
+            b3.CClass = new MyClassC() { Id = 3, Name = "c3", A = new MyClassA() { Name = "a2" } }; //--> c3 -> 8 --> a2 -> 9 --> enumerable -> 10 
+            a.BClassList.Add(b3);
+
+
+            int nodeCount = 0;
+            a.Visit((nodeInfo) =>
+            {
+                //nodeInfo.CurrentPath
+                //nodeInfo.CurrentPropertyInfo
+                //nodeInfo.CurrentInstance
+                //nodeInfo.ParentInstance
+                //nodeInfo.ParentNode
+                //nodeInfo.PropertyName
+
+                nodeCount++;
+                if (nodeInfo.CurrentInstance is IName name)
+                {
+                    Debug.WriteLine(name.Name);
+                }
+                Debug.WriteLine(nodeInfo.CurrentPath);
+                Debug.WriteLine(nodeCount);
+                Debug.WriteLine("---------------");
+                if (nodeCount == 5)
+                {
+                    nodeInfo.StopVisitCurrentNode();
+                }
+            });
+            Assert.True(nodeCount == 9);
+        }
+
     }
 }
