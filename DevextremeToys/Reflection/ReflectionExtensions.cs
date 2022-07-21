@@ -24,12 +24,91 @@ namespace DevExtremeToys.Reflection
         /// <exception cref="ArgumentNullException"></exception>
         public static object? GetPropertyValue(this object instance, string propertyName)
         {
+
             if (string.IsNullOrEmpty(propertyName) || instance == null)
             {
                 throw new ArgumentNullException($"{nameof(propertyName)},{nameof(instance)}");
             }
-            return instance.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(instance);
+            PropertyInfo? pi = GetPropertyInfo(instance, propertyName);
+            return pi?.GetValue(instance); ;
         }
+
+        /// <summary>
+        /// Get PropertyInfo from instance
+        /// </summary>
+        /// <param name="instance">Instance where look for proeprty</param>
+        /// <param name="propertyName">Name of the property to look for</param>
+        /// <returns>PropertyInfo or null</returns>
+        private static PropertyInfo? GetPropertyInfo(object instance, string propertyName)
+        {
+            return GetPropertyInfo(instance.GetType(), propertyName);
+        }
+        
+        /// <summary>
+        /// Get PropertyInfo from instance
+        /// </summary>
+        /// <param name="instance">Type where look for proeprty</param>
+        /// <param name="propertyName">Name of the property to look for</param>
+        /// <returns>PropertyInfo or null</returns>
+        private static PropertyInfo? GetPropertyInfo(Type objectType, string propertyName)
+        {
+            PropertyInfo? pi = null;
+            try
+            {
+                pi = objectType.GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            }
+            catch (AmbiguousMatchException)
+            {
+                try
+                {
+                    pi = objectType.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
+                }
+                catch (AmbiguousMatchException)
+                {
+                    pi = objectType.GetProperties(BindingFlags.Public | BindingFlags.Instance).FirstOrDefault(p => p.Name == propertyName);
+                }
+            }
+            return pi;
+        }
+
+        /// <summary>
+        /// Get FieldInfo from instance
+        /// </summary>
+        /// <param name="instance">Instance where look for field</param>
+        /// <param name="fieldName">Name of the field to look for</param>
+        /// <returns>PropertyInfo or null</returns>
+        private static FieldInfo? GetFieldInfoInfo(object instance, string fieldName)
+        {
+            return GetFieldInfoInfo(instance.GetType(), fieldName);
+        }
+
+        /// <summary>
+        /// Get FieldInfo from instance
+        /// </summary>
+        /// <param name="instance">Type where look for field</param>
+        /// <param name="fieldName">Name of the field to look for</param>
+        /// <returns>PropertyInfo or null</returns>
+        private static FieldInfo? GetFieldInfoInfo(Type objectType, string fieldName)
+        {
+            FieldInfo? pi = null;
+            try
+            {
+                pi = objectType.GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            }
+            catch (AmbiguousMatchException)
+            {
+                try
+                {
+                    pi = objectType.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
+                }
+                catch (AmbiguousMatchException)
+                {
+                    pi = objectType.GetFields(BindingFlags.Public | BindingFlags.Instance).FirstOrDefault(p => p.Name == fieldName);
+                }
+            }
+            return pi;
+        }
+
 
         /// <summary>
         /// Set value to a property
@@ -44,7 +123,8 @@ namespace DevExtremeToys.Reflection
             {
                 throw new ArgumentNullException($"{nameof(propertyName)},{nameof(instance)}");
             }
-            instance.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).SetValue(instance, newValue);
+            PropertyInfo? pi = GetPropertyInfo(instance, propertyName);
+            pi?.SetValue(instance, newValue);
         }
 
         /// <summary>
@@ -60,7 +140,8 @@ namespace DevExtremeToys.Reflection
             {
                 throw new ArgumentNullException($"{nameof(fieldName)},{nameof(instance)}");
             }
-            return instance.GetType().GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).GetValue(instance);
+            PropertyInfo? pi = GetPropertyInfo(instance, fieldName);
+            return pi?.GetValue(instance);
         }
 
         /// <summary>
@@ -76,7 +157,8 @@ namespace DevExtremeToys.Reflection
             {
                 throw new ArgumentNullException($"{nameof(fieldName)},{nameof(instance)}");
             }
-            instance.GetType().GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).SetValue(instance, newValue);
+            PropertyInfo? pi = GetPropertyInfo(instance, fieldName);
+            pi?.SetValue(instance, newValue);
         }
 
         /// <summary>
@@ -90,7 +172,7 @@ namespace DevExtremeToys.Reflection
             where TA : Attribute
         {
             TA attr = null;
-            var pi = objectType.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.Public);
+            PropertyInfo? pi = GetPropertyInfo(objectType, propertyName);
             if (pi != null)
             { 
                 var propDescr = TypeDescriptor.GetProperties(pi.ReflectedType).Find(pi.Name, false);
