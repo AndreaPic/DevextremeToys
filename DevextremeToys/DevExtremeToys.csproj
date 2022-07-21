@@ -6,7 +6,7 @@
 	  <FileVersion>1.4.0</FileVersion>
 	  <Version>$(VersionPrefix)$(VersionSuffix)</Version>
 	  <VersionPrefix>1.4.0</VersionPrefix>
-	  <VersionSuffix>beta</VersionSuffix>
+	  <VersionSuffix></VersionSuffix>
 	  <PackageId>DevextremeToys</PackageId>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <Authors>Andrea Piccioni</Authors>
@@ -20,6 +20,7 @@
 	  <Copyright />
 	  <Title>DevExtreme Toys</Title>
 	  <PackageReleaseNotes>
+		  - (new) Fix AmbiguousMatchException in ReflectionExtensions
 		  - (new) Visitor Extension now has stop visiting feature
 		  - (new) added Async Visitor Extension
 		  - Concurrent Generic List (thread safe)
