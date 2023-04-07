@@ -408,10 +408,10 @@ namespace DevExtremeToys.StringComparer
         }
 
         /// <summary>
-        /// Get the number of the elements in the eneumerable
+        /// Get the number of the elements in the enumerable
         /// </summary>
         /// <param name="enumerable">Enumerable to count</param>
-        /// <returns>Number of the elements in the eneumerable</returns>
+        /// <returns>Number of the elements in the enumerable</returns>
         private static int GetCount(IEnumerable enumerable)
         {
             int count = 0;

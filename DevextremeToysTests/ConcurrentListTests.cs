@@ -33,44 +33,45 @@ namespace DevExtremeToysTests
             });
         }
 
-        [Fact]
-        public void ConcurrentTest()
+        [Theory]
+        [InlineData(100,500,5)]
+        public void ConcurrentTest(int parallelAddQuantity, int parallelReadQuantity, int delay)
         {
             ConcurrentList<int> list = new ConcurrentList<int>();
-            Parallel.For(0, 1000, i =>
+            Parallel.For(0, parallelAddQuantity, i =>
             {
                 list.Add(i);
             });
 
             var distinct = list.Distinct();
-            Assert.Equal(1000, distinct.Count());
+            Assert.Equal(parallelAddQuantity, distinct.Count());
 
             List<Task> tasks = new List<Task>();
 
             list = new ConcurrentList<int>();
             Task t1 = Task.Run(() =>
             {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < parallelAddQuantity; i++)
                 {
-                    Task.Delay(10).Wait();
+                    Task.Delay(delay).Wait();
                     list.Add(i);
                 }
             });
             tasks.Add(t1);
             Task t2 = Task.Run(() =>
             {
-                for (int i = 1000; i < 2000; i++)
+                for (int i = parallelAddQuantity; i < parallelAddQuantity * 2; i++)
                 {
-                    Task.Delay(10).Wait();
+                    Task.Delay(delay).Wait();
                     list.Add(i);
                 }
             });
             tasks.Add(t2);
             Task t3 = Task.Run(() =>
             {
-                for (int i = 2000; i < 3000; i++)
+                for (int i = parallelAddQuantity * 2; i < parallelAddQuantity * 3; i++)
                 {
-                    Task.Delay(10).Wait();
+                    Task.Delay(delay).Wait();
                     list.Add(i);
                 }
             });
@@ -78,10 +79,11 @@ namespace DevExtremeToysTests
 
             Task.WaitAll(tasks.ToArray());
             distinct = list.Distinct();
-            Assert.Equal(3000, distinct.Count());
+            Assert.Equal(parallelAddQuantity * 3, list.Count());
+            Assert.Equal(parallelAddQuantity * 3, distinct.Count());
 
             list = new ConcurrentList<int>();
-            for(int i = 0; i < 5000; i++)
+            for(int i = 0; i < parallelReadQuantity; i++)
             {
                 list.Add(i);
             }
@@ -92,7 +94,7 @@ namespace DevExtremeToysTests
                 int index = 0;
                 foreach (var item in list)
                 {
-                    Task.Delay(10).Wait();
+                    Task.Delay(delay).Wait();
                     Assert.Equal(index, item);
                     index++;
                 }
@@ -103,7 +105,7 @@ namespace DevExtremeToysTests
                 int index = 0;
                 foreach (var item in list)
                 {
-                    Task.Delay(10).Wait();
+                    Task.Delay(delay).Wait();
                     Assert.Equal(index, item);
                     index++;
                 }
@@ -114,7 +116,7 @@ namespace DevExtremeToysTests
                 int index = 0;
                 foreach (var item in list)
                 {
-                    Task.Delay(10).Wait();
+                    Task.Delay(delay).Wait();
                     Assert.Equal(index, item);
                     index++;
                 }

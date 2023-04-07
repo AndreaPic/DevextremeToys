@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+	<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
 	  <AssemblyVersion>1.4.0.0</AssemblyVersion>
 	  <FileVersion>1.4.0</FileVersion>
 	  <Version>$(VersionPrefix)$(VersionSuffix)</Version>
@@ -35,12 +35,16 @@
 		  - See documentation and examples at: https://github.com/AndreaPic/DevextremeToys
 	  </PackageReleaseNotes>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
-	<ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
