@@ -11,8 +11,8 @@ namespace DevExtremeToys.JSon
         /// <summary>
         /// Create a JSon string for the object
         /// </summary>
-        /// <param name="source">objecto to serialize in json</param>
-        /// <returns>json rapresentation of the object</returns>
+        /// <param name="source">object to serialize in json</param>
+        /// <returns>json representation of the object</returns>
         public static string ToJSon(this object source)
         {
             var json = JsonConvert.SerializeObject(source);
@@ -22,9 +22,9 @@ namespace DevExtremeToys.JSon
         /// <summary>
         /// Create a JSon string for the object
         /// </summary>
-        /// <param name="source">objecto to serialize in json</param>
+        /// <param name="source">object to serialize in json</param>
         /// <param name="settings">setting for json serialization</param>
-        /// <returns>json rapresentation of the object</returns>
+        /// <returns>json representation of the object</returns>
         public static string ToJSon(this object source, JsonSerializerSettings settings)
         {
             var json = JsonConvert.SerializeObject(source, settings);
@@ -73,7 +73,6 @@ namespace DevExtremeToys.JSon
         /// </summary>
         /// <param name="json">JSon for the object</param>
         /// <param name="outputType">Object type</param>
-        /// <param name="settings"></param>
         /// <param name="settings">Settings used in deserialization</param>
         /// <returns>Deserialized Object</returns>
         public static object? ToObject(this string json, Type outputType, JsonSerializerSettings settings)

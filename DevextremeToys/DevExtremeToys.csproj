@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
-	  <AssemblyVersion>1.4.0.0</AssemblyVersion>
-	  <FileVersion>1.4.0</FileVersion>
+	<TargetFrameworks>net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
+	  <AssemblyVersion>2.0.0.0</AssemblyVersion>
+	  <FileVersion>2.0.0</FileVersion>
 	  <Version>$(VersionPrefix)$(VersionSuffix)</Version>
-	  <VersionPrefix>1.4.0</VersionPrefix>
+	  <VersionPrefix>2.0.0</VersionPrefix>
 	  <VersionSuffix></VersionSuffix>
 	  <PackageId>DevextremeToys</PackageId>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,9 +20,11 @@
 	  <Copyright />
 	  <Title>DevExtreme Toys</Title>
 	  <PackageReleaseNotes>
-		  - (new) Fix AmbiguousMatchException in ReflectionExtensions
-		  - (new) Visitor Extension now has stop visiting feature
-		  - (new) added Async Visitor Extension
+		  - (new) .net 7 support
+		  - (new) Added .Pad Extension to string type
+		  - Fix AmbiguousMatchException in ReflectionExtensions
+		  - Visitor Extension now has stop visiting feature
+		  - added Async Visitor Extension
 		  - Concurrent Generic List (thread safe)
 		  - Object to JSon and viceversa
 		  - Object to zip and viceversa
@@ -35,12 +37,16 @@
 		  - See documentation and examples at: https://github.com/AndreaPic/DevextremeToys
 	  </PackageReleaseNotes>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
-	<ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net7.0'">
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
