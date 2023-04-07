@@ -14,11 +14,11 @@ namespace DevExtremeToys.Strings
     public static partial class StringExtensions
     {
         /// <summary>
-        /// Replace last occurence of a string
+        /// Replace last occurrence of a string
         /// </summary>
         /// <param name="sourceString">String where replace value</param>
         /// <param name="oldValue">Value to look for</param>
-        /// <param name="newValue">New value that replce oldValue</param>
+        /// <param name="newValue">New value that replace oldValue</param>
         /// <param name="comparisonType">Specifies the culture, case, and sort rules</param>
         /// <returns>String with replaced value</returns>
         public static string ReplaceLast(this string sourceString, string oldValue, string newValue, StringComparison comparisonType)
@@ -38,22 +38,22 @@ namespace DevExtremeToys.Strings
             return sourceString;
         }
         /// <summary>
-        /// Replace last occurence of a string
+        /// Replace last occurrence of a string
         /// </summary>
         /// <param name="sourceString">String where replace value</param>
         /// <param name="oldValue">Value to look for</param>
-        /// <param name="newValue">New value that replce oldValue</param>
+        /// <param name="newValue">New value that replace oldValue</param>
         /// <returns>String with replaced value</returns>
         public static string ReplaceLast(this string sourceString, string oldValue, string newValue)
         {
             return sourceString.ReplaceLast(oldValue, newValue, StringComparison.Ordinal);
         }
         /// <summary>
-        /// Replace last occurence of a string
+        /// Replace last occurrence of a string
         /// </summary>
         /// <param name="sourceString">String where replace value</param>
         /// <param name="oldValue">Value to look for</param>
-        /// <param name="newValue">New value that replce oldValue</param>
+        /// <param name="newValue">New value that replace oldValue</param>
         /// <param name="ignoreCase">True ignore case sense searching oldValue</param>
         /// <returns>String with replaced value</returns>
         public static string ReplaceLast(this string sourceString, string oldValue, string newValue, bool ignoreCase)//, CultureInfo? culture)
@@ -62,11 +62,11 @@ namespace DevExtremeToys.Strings
         }
 
         /// <summary>
-        /// Replace first occurence of a string
+        /// Replace first occurrence of a string
         /// </summary>
         /// <param name="sourceString">String where replace value</param>
         /// <param name="oldValue">Value to look for</param>
-        /// <param name="newValue">New value that replce oldValue</param>
+        /// <param name="newValue">New value that replace oldValue</param>
         /// <param name="comparisonType">Specifies the culture, case, and sort rules</param>
         /// <returns>String with replaced value</returns>
         public static string ReplaceFirst(this string sourceString, string oldValue, string newValue, StringComparison comparisonType)
@@ -86,22 +86,22 @@ namespace DevExtremeToys.Strings
             return sourceString;
         }
         /// <summary>
-        /// Replace first occurence of a string
+        /// Replace first occurrence of a string
         /// </summary>
         /// <param name="sourceString">String where replace value</param>
         /// <param name="oldValue">Value to look for</param>
-        /// <param name="newValue">New value that replce oldValue</param>
+        /// <param name="newValue">New value that replace oldValue</param>
         /// <returns>String with replaced value</returns>
         public static string ReplaceFirst(this string sourceString, string oldValue, string newValue)
         {
             return sourceString.ReplaceFirst(oldValue, newValue, StringComparison.Ordinal);
         }
         /// <summary>
-        /// Replace first occurence of a string
+        /// Replace first occurrence of a string
         /// </summary>
         /// <param name="sourceString">String where replace value</param>
         /// <param name="oldValue">Value to look for</param>
-        /// <param name="newValue">New value that replce oldValue</param>
+        /// <param name="newValue">New value that replace oldValue</param>
         /// <param name="ignoreCase">True ignore case sense searching oldValue</param>
         /// <returns>String with replaced value</returns>
         public static string ReplaceFirst(this string sourceString, string oldValue, string newValue, bool ignoreCase)//, CultureInfo? culture)

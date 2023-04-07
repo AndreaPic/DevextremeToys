@@ -36,18 +36,18 @@ namespace DevExtremeToys.Reflection
         /// <summary>
         /// Get PropertyInfo from instance
         /// </summary>
-        /// <param name="instance">Instance where look for proeprty</param>
+        /// <param name="instance">Instance where look for property</param>
         /// <param name="propertyName">Name of the property to look for</param>
         /// <returns>PropertyInfo or null</returns>
         private static PropertyInfo? GetPropertyInfo(object instance, string propertyName)
         {
             return GetPropertyInfo(instance.GetType(), propertyName);
         }
-        
+
         /// <summary>
         /// Get PropertyInfo from instance
         /// </summary>
-        /// <param name="instance">Type where look for proeprty</param>
+        /// <param name="objectType">Type where look for property</param>
         /// <param name="propertyName">Name of the property to look for</param>
         /// <returns>PropertyInfo or null</returns>
         private static PropertyInfo? GetPropertyInfo(Type objectType, string propertyName)
@@ -85,7 +85,7 @@ namespace DevExtremeToys.Reflection
         /// <summary>
         /// Get FieldInfo from instance
         /// </summary>
-        /// <param name="instance">Type where look for field</param>
+        /// <param name="objectType">Type where look for field</param>
         /// <param name="fieldName">Name of the field to look for</param>
         /// <returns>PropertyInfo or null</returns>
         private static FieldInfo? GetFieldInfoInfo(Type objectType, string fieldName)
@@ -114,7 +114,7 @@ namespace DevExtremeToys.Reflection
         /// Set value to a property
         /// </summary>
         /// <param name="propertyName">Property name where set the value</param>
-        /// <param name="newValue">New valuefor the property</param>
+        /// <param name="newValue">New value for the property</param>
         /// <param name="instance">Object instance of the property</param>
         /// <exception cref="ArgumentNullException"></exception>
         public static void SetPropertyValue(this object instance, [NotNull] string propertyName, object newValue)

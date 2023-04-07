@@ -57,7 +57,7 @@ namespace DevExtremeToys.Serialization
         /// </summary>
         /// <typeparam name="T">Type to serialize</typeparam>
         /// <param name="objectToWrite">Instance to serialize</param>
-        /// <param name="jsonsettings">Settins used for serialization</param>
+        /// <param name="jsonsettings">Settings used for serialization</param>
         /// <returns>byte array result from object serialization</returns>
         /// <remarks>Serialization use JsonConvert.DefaultSettings and UTF8 to convert object in bytearray</remarks>
         public static byte[] ToUTF8ByteArray<T>(this T objectToWrite, JsonSerializerSettings jsonsettings)
@@ -70,7 +70,7 @@ namespace DevExtremeToys.Serialization
         /// Deserialize a byte array of utf8 string of serialized object
         /// </summary>
         /// <typeparam name="T">Typo to deserialize</typeparam>
-        /// <param name="arr">byte array of serialed object</param>
+        /// <param name="arr">byte array of serialized object</param>
         /// <returns>Deserialized object</returns>
         /// <remarks>bytearray need to be created with UTF8 and JsonConvert.DefaultSettings</remarks>
         public static T FromUF8ByteArray<T>(this byte[] arr)
@@ -83,7 +83,7 @@ namespace DevExtremeToys.Serialization
         /// Deserialize a byte array of utf8 string of serialized object
         /// </summary>
         /// <typeparam name="T">Typo to deserialize</typeparam>
-        /// <param name="arr">byte array of serialed object</param>
+        /// <param name="arr">byte array of serialized object</param>
         /// <returns>Deserialized object</returns>
         /// <remarks>bytearray need to be created with UTF8 and JsonConvert.DefaultSettings</remarks>
         public static T FromUF8ByteArray<T>(this byte[] arr, JsonSerializerSettings jsonsettings)
@@ -96,7 +96,7 @@ namespace DevExtremeToys.Serialization
         /// <summary>
         /// Deserialize a byte array of serialized object
         /// </summary>
-        /// <param name="arr">byte array of serialed object</param>
+        /// <param name="arr">byte array of serialized object</param>
         /// <typeparam name="T">Deserialized Type</typeparam>
         /// <returns>Deserialized object</returns>
         public static T ObjectFromUF8ByteArray<T>(this byte[] arr)
@@ -108,7 +108,7 @@ namespace DevExtremeToys.Serialization
         /// <summary>
         /// Deserialize a byte array of serialized object
         /// </summary>
-        /// <param name="arr">byte array of serialed object</param>
+        /// <param name="arr">byte array of serialized object</param>
         /// <typeparam name="T">Deserialized Type</typeparam>
         /// <returns>Deserialized object</returns>
         public static T ObjectFromUF8ByteArray<T>(this byte[] arr, JsonSerializerSettings jsonsettings)

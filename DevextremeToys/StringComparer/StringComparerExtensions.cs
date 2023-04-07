@@ -970,7 +970,7 @@ namespace DevExtremeToys.StringComparer
         /// Compare two strings using current compare settings
         /// </summary>
         /// <param name="source">first string to compare</param>
-        /// <param name="value">second stirng to compare</param>
+        /// <param name="value">second string to compare</param>
         /// <returns>
         ///    A 32-bit signed integer indicating the lexical relationship between the two comparands.
         ///    Value Condition zero The two strings are equal. less than zero string1 is less
@@ -984,7 +984,7 @@ namespace DevExtremeToys.StringComparer
         /// Compare two strings using current compare settings
         /// </summary>
         /// <param name="source">first string to compare</param>
-        /// <param name="value">second stirng to compare</param>
+        /// <param name="value">second string to compare</param>
         /// <param name="settings">Setting used for comparison</param>
         /// <returns>
         ///    A 32-bit signed integer indicating the lexical relationship between the two comparands.
@@ -1009,7 +1009,7 @@ namespace DevExtremeToys.StringComparer
             return CultureInfo.CurrentCulture.CompareInfo.IndexOf(source, value, CompareSettings.Instance.GetCompareOptions()) >= 0;
         }
         /// <summary>
-        /// Check if second string is contained in first string using currnet compare settings
+        /// Check if second string is contained in first string using current compare settings
         /// </summary>
         /// <param name="source">first string where look for second</param>
         /// <param name="value">string to look for</param>
