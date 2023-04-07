@@ -195,5 +195,21 @@ namespace DevExtremeToysTests
             caughtException = Assert.Throws<ArgumentException>(() => s.AesEncrypt(key, iv));
         }
 
+        [Fact]
+        public void PadTest()
+        {
+            string sLeft = "AAA";
+            string paddedLeft = sLeft.PadLeft('0', 10);
+            Assert.True(paddedLeft.Length == 10);
+            Assert.True(paddedLeft == "0000000AAA");
+
+            string sRight = "AAA";
+            string paddedRight = sRight.PadRight('0', 10);
+            Assert.True(paddedRight.Length == 10);
+            Assert.True(paddedRight == "AAA0000000");
+
+
+        }
+
     }
 }

@@ -55,11 +55,11 @@ namespace DevExtremeToys.StringComparer
     public enum CaseOptions
     {
         /// <summary>
-        /// Upper letter and lower lettere are the same
+        /// Upper letter and lower letter are the same
         /// </summary>
         Insensitive = 0,
         /// <summary>
-        /// Upper letter and lower lettere are NOT the same
+        /// Upper letter and lower letter are NOT the same
         /// </summary>
         Sensitive = 1
     }
