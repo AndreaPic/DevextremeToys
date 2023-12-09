@@ -21,6 +21,7 @@
 	  <Title>DevExtreme Toys</Title>
 	  <PackageReleaseNotes>
 		  - (new) .net 8 support
+		  - (new) url friendly string base 64 encode and decode
 		  - .net 7 support
 		  - Added .Pad Extension to string type
 		  - Fix AmbiguousMatchException in ReflectionExtensions
