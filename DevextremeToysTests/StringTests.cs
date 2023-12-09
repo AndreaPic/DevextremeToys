@@ -121,6 +121,24 @@ namespace DevExtremeToysTests
 
             replaced = s1.ReplaceFirst(null, "HHH", System.StringComparison.Ordinal);
             Assert.True(replaced == "a1abbbcccaaabbbccc");
+
+
+            s1 = "ABC XYZ ABC XYZ ABC XYZ ABC XYZ";
+            replaced = s1.ReplaceFirst("ABC", "HHH", System.StringComparison.Ordinal);
+            Assert.True(replaced == "HHH XYZ ABC XYZ ABC XYZ ABC XYZ");
+
+            s1 = "ABC XYZ ABC XYZ ABC XYZ ABC XYZ";
+            replaced = s1.ReplaceFirst("XYZ", "HHH", System.StringComparison.Ordinal);
+            Assert.True(replaced == "ABC HHH ABC XYZ ABC XYZ ABC XYZ");
+
+            s1 = "ABC XYZ ABC XYZ ABC XYZ ABC XYZ";
+            replaced = s1.ReplaceLast("ABC", "HHH", System.StringComparison.Ordinal);
+            Assert.True(replaced == "ABC XYZ ABC XYZ ABC XYZ HHH XYZ");
+
+            s1 = "ABC XYZ ABC XYZ ABC XYZ ABC XYZ";
+            replaced = s1.ReplaceLast("XYZ", "HHH", System.StringComparison.Ordinal);
+            Assert.True(replaced == "ABC XYZ ABC XYZ ABC XYZ ABC HHH");
+
         }
 
         [Fact]
