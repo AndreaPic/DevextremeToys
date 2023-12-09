@@ -53,7 +53,7 @@ namespace DevExtremeToys.Visitors
         /// <summary>
         /// Parent object instance (it could be null es. for root instance) 
         /// </summary>
-        public object ParentInstance 
+        public object? ParentInstance 
         { 
             get
             {
