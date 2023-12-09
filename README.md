@@ -24,16 +24,18 @@ In this package there are some useful feature for every great developer.
   - With this extension you can use every string comparison but configured in the same way of your database.
 - **String Extensions**
   - It adds some feature like ReplaceFirst or ReplaceLast.
+- **URL base 64 encode & decode**
+  - String extension to encode string to valid url encoded 64 and viceversa.
 - **Reflection Extensions**
   - It adds features to all object like SetPropertyValue and GetPropertyValue.
 - **Json Extensions**
   - It adds features to all objects like .ToJson() and .ToObject() for the string type.
 - **Compression Extension**
-  - It adds features to all object to zip an instace of object.
+  - It adds features to all object to zip an instance of object.
 - **Serializer Extensions**
   - It adds features to all object to serialize them to and from byte[]
 - **Cryptography Extensions**
-  - It adds feture to encrypt and decrypt strings
+  - It adds feature to encrypt and decrypt strings
 - **List<> or IEnumerable<> Extensions**
   - It adds feature to List and IEnumerable such 'Split'
 - **Visitor Extensions**
@@ -119,6 +121,22 @@ Now your strings have new features like ReplaceLast, ReplaceFirst
 ```C#
 string s1 = "a1abbbcccaaabbbccc";
 var r = s1.ReplaceLast("bbb", "ZZZ");
+```
+
+### URL base 64 encode & decode
+
+Add this using
+
+```C#
+using DevExtremeToys.Url;
+```
+
+Now your strings have EncodeURL64 and DecodeURL64 methods 
+
+```C#
+string sourceString = "Dinanzi a me non fuor cose create \r\nse non etterne, e io etterno duro. \r\nLasciate ogne speranza, voi ch’intrate";
+var encoded = sourceString.EncodeURL64();
+var decoded = encoded.DecodeURL64();
 ```
 
 ### Reflection Extensions

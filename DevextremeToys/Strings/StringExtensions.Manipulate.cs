@@ -13,7 +13,7 @@ namespace DevExtremeToys.Strings
         /// </summary>
         /// <param name="sourceString">String to reverse</param>
         /// <returns>Reversed string</returns>
-        public static string ReverseString(this string sourceString)
+        public static string? ReverseString(this string sourceString)
         {
             string ret = null;
             if (!string.IsNullOrWhiteSpace(sourceString))
@@ -39,7 +39,7 @@ namespace DevExtremeToys.Strings
         /// <remarks>
         /// Please, for your self, don't fill with blanks ;)
         /// </remarks>
-        public static string PadRight(this string sourceString, char padChar, int outputStringLen)
+        public static string? PadRight(this string sourceString, char padChar, int outputStringLen)
         {
             return Pad(sourceString, padChar, outputStringLen, false);
         }
@@ -53,7 +53,7 @@ namespace DevExtremeToys.Strings
         /// <remarks>
         /// Please, for your self, don't fill with blanks ;)
         /// </remarks>
-        public static string PadLeft(this string sourceString, char padChar, int outputStringLen)
+        public static string? PadLeft(this string sourceString, char padChar, int outputStringLen)
         {
             return Pad(sourceString,padChar,outputStringLen,true);
         }
@@ -66,7 +66,7 @@ namespace DevExtremeToys.Strings
         /// <param name="outputStringLen">Requested output string length</param>
         /// <param name="isLeft">If true the string is padded to the left, if false to the right</param>
         /// <returns>String padded with specified char with the requested length</returns>
-        private static string Pad(string sourceString, char padChar, int outputStringLen,bool isLeft)
+        private static string? Pad(string sourceString, char padChar, int outputStringLen,bool isLeft)
         {
             string ret = null;
             if (!string.IsNullOrWhiteSpace(sourceString) && (sourceString.Length < outputStringLen))
