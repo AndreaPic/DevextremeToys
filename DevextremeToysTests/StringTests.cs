@@ -101,6 +101,10 @@ namespace DevExtremeToysTests
 
             replaced = s1.ReplaceLast(null, "HHH", System.StringComparison.Ordinal);
             Assert.True(replaced == "a1abbbcccaaabbbccc");
+
+            replaced = s1.ReplaceLast("ccc", "HHH", System.StringComparison.Ordinal);
+            Assert.True(replaced == "a1abbbcccaaabbbHHH");
+
         }
 
         [Fact]
