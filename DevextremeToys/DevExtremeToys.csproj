@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFrameworks>net8.0;net7.0;net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
-	  <AssemblyVersion>8.0.0.0</AssemblyVersion>
-	  <FileVersion>8.0.0</FileVersion>
+	<TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
+	  <AssemblyVersion>10.0.0.0</AssemblyVersion>
+	  <FileVersion>10.0.0</FileVersion>
 	  <Version>$(VersionPrefix)$(VersionSuffix)</Version>
-	  <VersionPrefix>8.0.0</VersionPrefix>
+	  <VersionPrefix>10.0.0</VersionPrefix>
 	  <VersionSuffix></VersionSuffix>
 	  <PackageId>DevextremeToys</PackageId>
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,9 +20,11 @@
 	  <Copyright />
 	  <Title>DevExtreme Toys</Title>
 	  <PackageReleaseNotes>
-		  - (new) .net 8 support
-		  - (new) url friendly string base 64 encode and decode
-		  - .net 7 support
+		  - (new) .net 10 support
+		  - (new) .net 9 support
+		  - dropped support for .NET 7, .NET 6, .NET 5.0, and .NET Core 3.1
+		  - .net 8 support
+		  - url friendly string base 64 encode and decode
 		  - Added .Pad Extension to string type
 		  - Fix AmbiguousMatchException in ReflectionExtensions
 		  - Visitor Extension now has stop visiting feature
@@ -39,21 +41,20 @@
 		  - See documentation and examples at: https://github.com/AndreaPic/DevextremeToys
 	  </PackageReleaseNotes>
   </PropertyGroup>
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net7.0'">
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
-
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 	<ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
 </Project>
