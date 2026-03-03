@@ -19,6 +19,7 @@
 	  <Description>This library contains a lot of useful extensions for dotnet programmers</Description>
 	  <Copyright />
 	  <Title>DevExtreme Toys</Title>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageReleaseNotes>
 		  - (new) .net 10 support
 		  - (new) .net 9 support
@@ -54,7 +55,10 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+	<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+	<None Include="..\README.md" Pack="True" PackagePath="\" />
   </ItemGroup>
 
 </Project>
