@@ -22,7 +22,7 @@
 	  <PackageReleaseNotes>
 		  - (new) .net 10 support
 		  - (new) .net 9 support
-		  - (new) deprecated .net 7 + .net 6
+		  - dropped support for .NET 7, .NET 6, .NET 5.0, and .NET Core 3.1
 		  - .net 8 support
 		  - url friendly string base 64 encode and decode
 		  - Added .Pad Extension to string type
